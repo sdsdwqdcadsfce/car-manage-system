@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.carmanagesystem.mapper.ProjectBeautyManageMapper">
+  <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.ProjectBeautyManage">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="projectId" jdbcType="VARCHAR" property="projectid" />
+    <result column="projectCode" jdbcType="VARCHAR" property="projectcode" />
+    <result column="projectName" jdbcType="VARCHAR" property="projectname" />
+    <result column="projectUnit" jdbcType="VARCHAR" property="projectunit" />
+    <result column="projectMoney" jdbcType="VARCHAR" property="projectmoney" />
+    <result column="inserTime" jdbcType="TIMESTAMP" property="insertime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="goodsId" jdbcType="VARCHAR" property="goodsid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, projectId, projectCode, projectName, projectUnit, projectMoney, inserTime, updateTime, 
+    goodsId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_beauty_manage
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_beauty_manage
+  </select>
+
+
+  <select id="selectByProjectName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_beauty_manage
+    <if test="projectname != null">
+      where projectName like concat('%',#{projectname,jdbcType=VARCHAR},'%')
+    </if>
+
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from project_beauty_manage
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="insert" parameterType="com.peait.carmanagesystem.entity.ProjectBeautyManage">
+    insert into project_beauty_manage (id, projectId, projectCode, 
+      projectName, projectUnit, projectMoney, 
+      inserTime, updateTime, goodsId
+      )
+    values (#{id,jdbcType=VARCHAR}, #{projectid,jdbcType=VARCHAR}, #{projectcode,jdbcType=VARCHAR}, 
+      #{projectname,jdbcType=VARCHAR}, #{projectunit,jdbcType=VARCHAR}, #{projectmoney,jdbcType=VARCHAR},
+      #{insertime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{goodsid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.ProjectBeautyManage">
+    insert into project_beauty_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectid != null">
+        projectId,
+      </if>
+      <if test="projectcode != null">
+        projectCode,
+      </if>
+      <if test="projectname != null">
+        projectName,
+      </if>
+      <if test="projectunit != null">
+        projectUnit,
+      </if>
+      <if test="projectmoney != null">
+        projectMoney,
+      </if>
+      <if test="insertime != null">
+        inserTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="goodsid != null">
+        goodsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectid != null">
+        #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectcode != null">
+        #{projectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectname != null">
+        #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="projectunit != null">
+        #{projectunit,jdbcType=VARCHAR},
+      </if>
+      <if test="projectmoney != null">
+        #{projectmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="insertime != null">
+        #{insertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.ProjectBeautyManage">
+    update project_beauty_manage
+    <set>
+      <if test="projectid != null">
+        projectId = #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectcode != null">
+        projectCode = #{projectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectname != null">
+        projectName = #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="projectunit != null">
+        projectUnit = #{projectunit,jdbcType=VARCHAR},
+      </if>
+      <if test="projectmoney != null">
+        projectMoney = #{projectmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="insertime != null">
+        inserTime = #{insertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsid != null">
+        goodsId = #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.ProjectBeautyManage">
+    update project_beauty_manage
+    set projectId = #{projectid,jdbcType=VARCHAR},
+      projectCode = #{projectcode,jdbcType=VARCHAR},
+      projectName = #{projectname,jdbcType=VARCHAR},
+      projectUnit = #{projectunit,jdbcType=VARCHAR},
+      projectMoney = #{projectmoney,jdbcType=VARCHAR},
+      inserTime = #{insertime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      goodsId = #{goodsid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

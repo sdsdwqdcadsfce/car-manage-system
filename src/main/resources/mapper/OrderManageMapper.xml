@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.carmanagesystem.mapper.OrderManageMapper">
+    <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.OrderManage">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="orderCode" jdbcType="VARCHAR" property="ordercode"/>
+        <result column="orderName" jdbcType="VARCHAR" property="ordername"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="projectname" jdbcType="VARCHAR" property="projectname"/>
+        <result column="userCode" jdbcType="VARCHAR" property="usercode"/>
+        <result column="projectCode" jdbcType="VARCHAR" property="projectcode"/>
+        <result column="inserTime" jdbcType="TIMESTAMP" property="insertime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, orderCode, orderName, userCode, projectCode, inserTime, updateTime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        o.*,ui.realName as username ,pm.projectName as projectname
+        from order_manage as o left join user_info ui on o.userCode=ui.userCode left join project_beauty_manage pm on o.projectCode=pm.projectCode
+        where o.id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryListByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        om.inserTime,bm.projectName as projectname,bm.projectMoney as projectCode
+        from order_manage om left join project_beauty_manage bm on om.projectCode=bm.projectCode
+        where usercode = #{usercode,jdbcType=VARCHAR} order by om.inserTime desc
+    </select>
+
+    <select id="queryList" parameterType="java.lang.String" resultMap="BaseResultMap">
+         select
+    o.*,ui.realName as username ,pm.projectName as projectname
+    from order_manage as o left join user_info ui on o.userCode=ui.userCode left join project_beauty_manage pm on o.projectCode=pm.projectCode
+    <if test="ordercode!=null and ordercode!='' ">
+        where o.orderCode = #{ordercode,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order_manage
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.peait.carmanagesystem.entity.OrderManage">
+    insert into order_manage (id, orderCode, orderName, 
+      userCode, projectCode, inserTime, 
+      updateTime)
+    values (#{id,jdbcType=VARCHAR}, #{ordercode,jdbcType=VARCHAR}, #{ordername,jdbcType=VARCHAR}, 
+      #{usercode,jdbcType=VARCHAR}, #{projectcode,jdbcType=VARCHAR}, #{insertime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.OrderManage">
+        insert into order_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="ordercode != null">
+                orderCode,
+            </if>
+            <if test="ordername != null">
+                orderName,
+            </if>
+            <if test="usercode != null">
+                userCode,
+            </if>
+            <if test="projectcode != null">
+                projectCode,
+            </if>
+            <if test="insertime != null">
+                inserTime,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="ordercode != null">
+                #{ordercode,jdbcType=VARCHAR},
+            </if>
+            <if test="ordername != null">
+                #{ordername,jdbcType=VARCHAR},
+            </if>
+            <if test="usercode != null">
+                #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="projectcode != null">
+                #{projectcode,jdbcType=VARCHAR},
+            </if>
+            <if test="insertime != null">
+                #{insertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.OrderManage">
+        update order_manage
+        <set>
+            <if test="ordercode != null">
+                orderCode = #{ordercode,jdbcType=VARCHAR},
+            </if>
+            <if test="ordername != null">
+                orderName = #{ordername,jdbcType=VARCHAR},
+            </if>
+            <if test="usercode != null">
+                userCode = #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="projectcode != null">
+                projectCode = #{projectcode,jdbcType=VARCHAR},
+            </if>
+            <if test="insertime != null">
+                inserTime = #{insertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.OrderManage">
+    update order_manage
+    set orderCode = #{ordercode,jdbcType=VARCHAR},
+      orderName = #{ordername,jdbcType=VARCHAR},
+      userCode = #{usercode,jdbcType=VARCHAR},
+      projectCode = #{projectcode,jdbcType=VARCHAR},
+      inserTime = #{insertime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

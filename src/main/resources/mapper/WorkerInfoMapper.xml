@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.carmanagesystem.mapper.WorkerInfoMapper">
+    <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.WorkerInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="workerCode" jdbcType="VARCHAR" property="workercode"/>
+        <result column="workerName" jdbcType="VARCHAR" property="workername"/>
+        <result column="passWord" jdbcType="VARCHAR" property="password"/>
+        <result column="realName" jdbcType="VARCHAR" property="realname"/>
+        <result column="workerAddress" jdbcType="VARCHAR" property="workeraddress"/>
+        <result column="workerPhone" jdbcType="VARCHAR" property="workerphone"/>
+        <result column="workerRemarks" jdbcType="VARCHAR" property="workerremarks"/>
+        <result column="inserTime" jdbcType="TIMESTAMP" property="insertime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, workerCode, workerName, passWord, realName, workerAddress, workerPhone, workerRemarks, 
+    inserTime, updateTime
+  </sql>
+
+
+
+    <select id="IsExistValidata" resultType="java.lang.Integer">
+      select
+        count(id)
+      from ${tableName}
+      where ${fileName} = #{fileValue,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="IsExistValidataNotId" resultType="java.lang.Integer">
+        select
+        count(id)
+        from ${tableName}
+        where ${fileName} = #{fileValue,jdbcType=INTEGER}
+        <if test="id != null">
+            and id !=#{id,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from worker_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectUserByWorkerName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from worker_info
+        where workerName = #{userName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getWorkList" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from worker_info
+        <if test="realName != null">
+            where realName like concat('%',#{realName,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from worker_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.peait.carmanagesystem.entity.WorkerInfo">
+    insert into worker_info (id, workerCode, workerName, 
+      passWord, realName, workerAddress, 
+      workerPhone, workerRemarks, inserTime, 
+      updateTime)
+    values (#{id,jdbcType=VARCHAR}, #{workercode,jdbcType=VARCHAR}, #{workername,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{workeraddress,jdbcType=VARCHAR}, 
+      #{workerphone,jdbcType=VARCHAR}, #{workerremarks,jdbcType=VARCHAR}, #{insertime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.WorkerInfo">
+        insert into worker_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="workercode != null">
+                workerCode,
+            </if>
+            <if test="workername != null">
+                workerName,
+            </if>
+            <if test="password != null">
+                passWord,
+            </if>
+            <if test="realname != null">
+                realName,
+            </if>
+            <if test="workeraddress != null">
+                workerAddress,
+            </if>
+            <if test="workerphone != null">
+                workerPhone,
+            </if>
+            <if test="workerremarks != null">
+                workerRemarks,
+            </if>
+            <if test="insertime != null">
+                inserTime,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="workercode != null">
+                #{workercode,jdbcType=VARCHAR},
+            </if>
+            <if test="workername != null">
+                #{workername,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="workeraddress != null">
+                #{workeraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="workerphone != null">
+                #{workerphone,jdbcType=VARCHAR},
+            </if>
+            <if test="workerremarks != null">
+                #{workerremarks,jdbcType=VARCHAR},
+            </if>
+            <if test="insertime != null">
+                #{insertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.WorkerInfo">
+        update worker_info
+        <set>
+            <if test="workercode != null">
+                workerCode = #{workercode,jdbcType=VARCHAR},
+            </if>
+            <if test="workername != null">
+                workerName = #{workername,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                passWord = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realName = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="workeraddress != null">
+                workerAddress = #{workeraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="workerphone != null">
+                workerPhone = #{workerphone,jdbcType=VARCHAR},
+            </if>
+            <if test="workerremarks != null">
+                workerRemarks = #{workerremarks,jdbcType=VARCHAR},
+            </if>
+            <if test="insertime != null">
+                inserTime = #{insertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.WorkerInfo">
+    update worker_info
+    set workerCode = #{workercode,jdbcType=VARCHAR},
+      workerName = #{workername,jdbcType=VARCHAR},
+      passWord = #{password,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      workerAddress = #{workeraddress,jdbcType=VARCHAR},
+      workerPhone = #{workerphone,jdbcType=VARCHAR},
+      workerRemarks = #{workerremarks,jdbcType=VARCHAR},
+      inserTime = #{insertime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

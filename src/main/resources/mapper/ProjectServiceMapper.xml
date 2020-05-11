@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.carmanagesystem.mapper.ProjectServiceMapper">
+  <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.ProjectService">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="projectId" jdbcType="VARCHAR" property="projectid" />
+    <result column="serviceListCode" jdbcType="VARCHAR" property="servicelistcode" />
+  </resultMap>
+
+  <resultMap id="BaseMap" type="com.peait.carmanagesystem.entity.ServiceList">
+    <result column="serviceCode" jdbcType="VARCHAR" property="servicecode" />
+    <result column="serviceName" jdbcType="VARCHAR" property="servicename" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, projectId, serviceListCode
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_service
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByProjectId" parameterType="java.lang.String" resultMap="BaseMap">
+    select
+    sl.serviceCode,sl.serviceName
+    from project_service as ps left join service_list as sl on ps.serviceListCode=sl.serviceCode
+    where projectId = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from project_service
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByProjctId" parameterType="java.lang.String">
+    delete from project_service
+    where projectId = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.peait.carmanagesystem.entity.ProjectService">
+    insert into project_service (id, projectId, serviceListCode
+      )
+    values (#{id,jdbcType=VARCHAR}, #{projectid,jdbcType=VARCHAR}, #{servicelistcode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.ProjectService">
+    insert into project_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectid != null">
+        projectId,
+      </if>
+      <if test="servicelistcode != null">
+        serviceListCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectid != null">
+        #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicelistcode != null">
+        #{servicelistcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.ProjectService">
+    update project_service
+    <set>
+      <if test="projectid != null">
+        projectId = #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicelistcode != null">
+        serviceListCode = #{servicelistcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.ProjectService">
+    update project_service
+    set projectId = #{projectid,jdbcType=VARCHAR},
+      serviceListCode = #{servicelistcode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

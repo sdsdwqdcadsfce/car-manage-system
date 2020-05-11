@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.carmanagesystem.mapper.StockManangeMapper">
+  <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.StockManange">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goodsId" jdbcType="VARCHAR" property="goodsid" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="goodsDate" jdbcType="TIMESTAMP" property="goodsdate" />
+    <result column="goodsCount" jdbcType="INTEGER" property="goodscount" />
+    <result column="supplierName" jdbcType="VARCHAR" property="suppliername" />
+    <result column="goodsMoney" jdbcType="VARCHAR" property="goodsmoney" />
+    <result column="inserTime" jdbcType="TIMESTAMP" property="insertime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goodsId, goodsName, goodsDate, goodsCount, supplierName, goodsMoney, inserTime, 
+    updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stock_manange
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByGoodsName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stock_manange
+    <if test="goodsName != null">
+      where goodsName like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from stock_manange
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.peait.carmanagesystem.entity.StockManange">
+    insert into stock_manange (id, goodsId, goodsName, 
+      goodsDate, goodsCount, supplierName, 
+      goodsMoney, inserTime, updateTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, 
+      #{goodsdate,jdbcType=TIMESTAMP}, #{goodscount,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, 
+      #{goodsmoney,jdbcType=VARCHAR}, #{insertime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.StockManange">
+    insert into stock_manange
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsid != null">
+        goodsId,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="goodsdate != null">
+        goodsDate,
+      </if>
+      <if test="goodscount != null">
+        goodsCount,
+      </if>
+      <if test="suppliername != null">
+        supplierName,
+      </if>
+      <if test="goodsmoney != null">
+        goodsMoney,
+      </if>
+      <if test="insertime != null">
+        inserTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdate != null">
+        #{goodsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodscount != null">
+        #{goodscount,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsmoney != null">
+        #{goodsmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="insertime != null">
+        #{insertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.StockManange">
+    update stock_manange
+    <set>
+      <if test="goodsid != null">
+        goodsId = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdate != null">
+        goodsDate = #{goodsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodscount != null">
+        goodsCount = #{goodscount,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null">
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsmoney != null">
+        goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="insertime != null">
+        inserTime = #{insertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.StockManange">
+    update stock_manange
+    set goodsId = #{goodsid,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsDate = #{goodsdate,jdbcType=TIMESTAMP},
+      goodsCount = #{goodscount,jdbcType=INTEGER},
+      supplierName = #{suppliername,jdbcType=VARCHAR},
+      goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
+      inserTime = #{insertime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
