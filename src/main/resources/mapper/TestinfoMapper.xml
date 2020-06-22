@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.student.mapper.TestinfoMapper">
+  <resultMap id="BaseResultMap" type="com.peait.student.entity.Testinfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="subject_code" jdbcType="VARCHAR" property="subjectCode" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="test_type" jdbcType="VARCHAR" property="testType" />
+    <result column="test_date" jdbcType="VARCHAR" property="testDate" />
+    <result column="test_anpai" jdbcType="VARCHAR" property="testAnpai" />
+    <result column="test_didian" jdbcType="VARCHAR" property="testDidian" />
+    <result column="test_zuoweihao" jdbcType="VARCHAR" property="testZuoweihao" />
+    <result column="test_qingkuang" jdbcType="VARCHAR" property="testQingkuang" />
+    <result column="test_other" jdbcType="VARCHAR" property="testOther" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, subject_id, subject_code, subject_name, test_type, test_date, test_anpai, test_didian, 
+    test_zuoweihao, test_qingkuang, test_other
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from testinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from testinfo
+   <if test="subjectName!=null and subjectName!=''">
+     where subject_name like concat('%', #{id,jdbcType=VARCHAR},'%')
+   </if>
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from testinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.peait.student.entity.Testinfo">
+    insert into testinfo (id, subject_id, subject_code, 
+      subject_name, test_type, test_date, 
+      test_anpai, test_didian, test_zuoweihao, 
+      test_qingkuang, test_other)
+    values (#{id,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, #{subjectCode,jdbcType=VARCHAR}, 
+      #{subjectName,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR}, #{testDate,jdbcType=VARCHAR}, 
+      #{testAnpai,jdbcType=VARCHAR}, #{testDidian,jdbcType=VARCHAR}, #{testZuoweihao,jdbcType=VARCHAR}, 
+      #{testQingkuang,jdbcType=VARCHAR}, #{testOther,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.student.entity.Testinfo">
+    insert into testinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectCode != null">
+        subject_code,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="testType != null">
+        test_type,
+      </if>
+      <if test="testDate != null">
+        test_date,
+      </if>
+      <if test="testAnpai != null">
+        test_anpai,
+      </if>
+      <if test="testDidian != null">
+        test_didian,
+      </if>
+      <if test="testZuoweihao != null">
+        test_zuoweihao,
+      </if>
+      <if test="testQingkuang != null">
+        test_qingkuang,
+      </if>
+      <if test="testOther != null">
+        test_other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode != null">
+        #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null">
+        #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="testDate != null">
+        #{testDate,jdbcType=VARCHAR},
+      </if>
+      <if test="testAnpai != null">
+        #{testAnpai,jdbcType=VARCHAR},
+      </if>
+      <if test="testDidian != null">
+        #{testDidian,jdbcType=VARCHAR},
+      </if>
+      <if test="testZuoweihao != null">
+        #{testZuoweihao,jdbcType=VARCHAR},
+      </if>
+      <if test="testQingkuang != null">
+        #{testQingkuang,jdbcType=VARCHAR},
+      </if>
+      <if test="testOther != null">
+        #{testOther,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.student.entity.Testinfo">
+    update testinfo
+    <set>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode != null">
+        subject_code = #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null">
+        test_type = #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="testDate != null">
+        test_date = #{testDate,jdbcType=VARCHAR},
+      </if>
+      <if test="testAnpai != null">
+        test_anpai = #{testAnpai,jdbcType=VARCHAR},
+      </if>
+      <if test="testDidian != null">
+        test_didian = #{testDidian,jdbcType=VARCHAR},
+      </if>
+      <if test="testZuoweihao != null">
+        test_zuoweihao = #{testZuoweihao,jdbcType=VARCHAR},
+      </if>
+      <if test="testQingkuang != null">
+        test_qingkuang = #{testQingkuang,jdbcType=VARCHAR},
+      </if>
+      <if test="testOther != null">
+        test_other = #{testOther,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.student.entity.Testinfo">
+    update testinfo
+    set subject_id = #{subjectId,jdbcType=INTEGER},
+      subject_code = #{subjectCode,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      test_type = #{testType,jdbcType=VARCHAR},
+      test_date = #{testDate,jdbcType=VARCHAR},
+      test_anpai = #{testAnpai,jdbcType=VARCHAR},
+      test_didian = #{testDidian,jdbcType=VARCHAR},
+      test_zuoweihao = #{testZuoweihao,jdbcType=VARCHAR},
+      test_qingkuang = #{testQingkuang,jdbcType=VARCHAR},
+      test_other = #{testOther,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

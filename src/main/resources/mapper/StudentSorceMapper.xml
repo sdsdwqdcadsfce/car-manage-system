@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.student.mapper.StudentSorceMapper">
+  <resultMap id="BaseResultMap" type="com.peait.student.entity.StudentSorce">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="xuenian" jdbcType="VARCHAR" property="xuenian" />
+    <result column="subject_code" jdbcType="VARCHAR" property="subjectCode" />
+    <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="subject_type" jdbcType="VARCHAR" property="subjectType" />
+    <result column="xuefen" jdbcType="VARCHAR" property="xuefen" />
+    <result column="bukaochengji" jdbcType="VARCHAR" property="bukaochengji" />
+    <result column="zongpingchengji" jdbcType="VARCHAR" property="zongpingchengji" />
+    <result column="chongxiu" jdbcType="VARCHAR" property="chongxiu" />
+    <result column="zuizhong" jdbcType="VARCHAR" property="zuizhong" />
+    <result column="jidian" jdbcType="VARCHAR" property="jidian" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_id, xuenian, subject_code, subject_id, subject_name, subject_type, xuefen, 
+    bukaochengji, zongpingchengji, chongxiu, zuizhong, jidian
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_sorce
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from student_sorce
+    <if test="subjectName!=null subjectName!='' ">
+      where subject_name like concat('%',#{subjectName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from student_sorce
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.peait.student.entity.StudentSorce">
+    insert into student_sorce (id, student_id, xuenian, 
+      subject_code, subject_id, subject_name, 
+      subject_type, xuefen, bukaochengji, 
+      zongpingchengji, chongxiu, zuizhong, 
+      jidian)
+    values (#{id,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{xuenian,jdbcType=VARCHAR}, 
+      #{subjectCode,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, 
+      #{subjectType,jdbcType=VARCHAR}, #{xuefen,jdbcType=VARCHAR}, #{bukaochengji,jdbcType=VARCHAR}, 
+      #{zongpingchengji,jdbcType=VARCHAR}, #{chongxiu,jdbcType=VARCHAR}, #{zuizhong,jdbcType=VARCHAR}, 
+      #{jidian,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.student.entity.StudentSorce">
+    insert into student_sorce
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="xuenian != null">
+        xuenian,
+      </if>
+      <if test="subjectCode != null">
+        subject_code,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="subjectType != null">
+        subject_type,
+      </if>
+      <if test="xuefen != null">
+        xuefen,
+      </if>
+      <if test="bukaochengji != null">
+        bukaochengji,
+      </if>
+      <if test="zongpingchengji != null">
+        zongpingchengji,
+      </if>
+      <if test="chongxiu != null">
+        chongxiu,
+      </if>
+      <if test="zuizhong != null">
+        zuizhong,
+      </if>
+      <if test="jidian != null">
+        jidian,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="xuenian != null">
+        #{xuenian,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode != null">
+        #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null">
+        #{subjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="xuefen != null">
+        #{xuefen,jdbcType=VARCHAR},
+      </if>
+      <if test="bukaochengji != null">
+        #{bukaochengji,jdbcType=VARCHAR},
+      </if>
+      <if test="zongpingchengji != null">
+        #{zongpingchengji,jdbcType=VARCHAR},
+      </if>
+      <if test="chongxiu != null">
+        #{chongxiu,jdbcType=VARCHAR},
+      </if>
+      <if test="zuizhong != null">
+        #{zuizhong,jdbcType=VARCHAR},
+      </if>
+      <if test="jidian != null">
+        #{jidian,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.student.entity.StudentSorce">
+    update student_sorce
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="xuenian != null">
+        xuenian = #{xuenian,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode != null">
+        subject_code = #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null">
+        subject_type = #{subjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="xuefen != null">
+        xuefen = #{xuefen,jdbcType=VARCHAR},
+      </if>
+      <if test="bukaochengji != null">
+        bukaochengji = #{bukaochengji,jdbcType=VARCHAR},
+      </if>
+      <if test="zongpingchengji != null">
+        zongpingchengji = #{zongpingchengji,jdbcType=VARCHAR},
+      </if>
+      <if test="chongxiu != null">
+        chongxiu = #{chongxiu,jdbcType=VARCHAR},
+      </if>
+      <if test="zuizhong != null">
+        zuizhong = #{zuizhong,jdbcType=VARCHAR},
+      </if>
+      <if test="jidian != null">
+        jidian = #{jidian,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.student.entity.StudentSorce">
+    update student_sorce
+    set student_id = #{studentId,jdbcType=VARCHAR},
+      xuenian = #{xuenian,jdbcType=VARCHAR},
+      subject_code = #{subjectCode,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_type = #{subjectType,jdbcType=VARCHAR},
+      xuefen = #{xuefen,jdbcType=VARCHAR},
+      bukaochengji = #{bukaochengji,jdbcType=VARCHAR},
+      zongpingchengji = #{zongpingchengji,jdbcType=VARCHAR},
+      chongxiu = #{chongxiu,jdbcType=VARCHAR},
+      zuizhong = #{zuizhong,jdbcType=VARCHAR},
+      jidian = #{jidian,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

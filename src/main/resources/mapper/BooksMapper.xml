@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peait.student.mapper.BooksMapper">
+  <resultMap id="BaseResultMap" type="com.peait.student.entity.Books">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="subject_code" jdbcType="VARCHAR" property="subjectCode" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_author" jdbcType="VARCHAR" property="bookAuthor" />
+    <result column="chubanshe" jdbcType="VARCHAR" property="chubanshe" />
+    <result column="jiage" jdbcType="VARCHAR" property="jiage" />
+    <result column="shuliang" jdbcType="VARCHAR" property="shuliang" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_id, subject_id, subject_code, subject_name, book_name, book_author, chubanshe, 
+    jiage, shuliang
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from books
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from books
+   <if test="bookName!=null and  bookName!='' ">
+     where book_name like concat('%', #{id,jdbcType=VARCHAR} ,'%')
+   </if>
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from books
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.peait.student.entity.Books">
+    insert into books (id, book_id, subject_id, 
+      subject_code, subject_name, book_name, 
+      book_author, chubanshe, jiage, 
+      shuliang)
+    values (#{id,jdbcType=VARCHAR}, #{bookId,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, 
+      #{subjectCode,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{bookName,jdbcType=VARCHAR}, 
+      #{bookAuthor,jdbcType=VARCHAR}, #{chubanshe,jdbcType=VARCHAR}, #{jiage,jdbcType=VARCHAR}, 
+      #{shuliang,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.peait.student.entity.Books">
+    insert into books
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectCode != null">
+        subject_code,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="bookName != null">
+        book_name,
+      </if>
+      <if test="bookAuthor != null">
+        book_author,
+      </if>
+      <if test="chubanshe != null">
+        chubanshe,
+      </if>
+      <if test="jiage != null">
+        jiage,
+      </if>
+      <if test="shuliang != null">
+        shuliang,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode != null">
+        #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null">
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="chubanshe != null">
+        #{chubanshe,jdbcType=VARCHAR},
+      </if>
+      <if test="jiage != null">
+        #{jiage,jdbcType=VARCHAR},
+      </if>
+      <if test="shuliang != null">
+        #{shuliang,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.student.entity.Books">
+    update books
+    <set>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode != null">
+        subject_code = #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null">
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="chubanshe != null">
+        chubanshe = #{chubanshe,jdbcType=VARCHAR},
+      </if>
+      <if test="jiage != null">
+        jiage = #{jiage,jdbcType=VARCHAR},
+      </if>
+      <if test="shuliang != null">
+        shuliang = #{shuliang,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.peait.student.entity.Books">
+    update books
+    set book_id = #{bookId,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      subject_code = #{subjectCode,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_author = #{bookAuthor,jdbcType=VARCHAR},
+      chubanshe = #{chubanshe,jdbcType=VARCHAR},
+      jiage = #{jiage,jdbcType=VARCHAR},
+      shuliang = #{shuliang,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
