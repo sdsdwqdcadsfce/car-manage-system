@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.peait.carmanagesystem.mapper.UserInfoMapper">
-    <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.UserInfo">
+<mapper namespace="com.peait.student.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.peait.student.entity.UserInfo">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="userCode" jdbcType="VARCHAR" property="usercode"/>
         <result column="userName" jdbcType="VARCHAR" property="username"/>
@@ -30,8 +30,8 @@
         select
         <include refid="Base_Column_List"/>
         from user_info
-        <if test="realName != null">
-            where realName like concat('%',#{realName,jdbcType=VARCHAR},'%')
+        <if test="userName != null">
+            where userName like concat('%',#{userName,jdbcType=VARCHAR},'%')
         </if>
     </select>
 
@@ -69,7 +69,7 @@
     delete from user_info
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="com.peait.carmanagesystem.entity.UserInfo">
+    <insert id="insert" parameterType="com.peait.student.entity.UserInfo">
     insert into user_info (id, userCode, userName, 
       passWord, realName, userAddress, 
       userPhone, userRemarks, inserTime, 
@@ -79,7 +79,7 @@
       #{userphone,jdbcType=VARCHAR}, #{userremarks,jdbcType=VARCHAR}, #{insertime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.UserInfo">
+    <insert id="insertSelective" parameterType="com.peait.student.entity.UserInfo">
         insert into user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -146,7 +146,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.UserInfo">
+    <update id="updateByPrimaryKeySelective" parameterType="com.peait.student.entity.UserInfo">
         update user_info
         <set>
             <if test="usercode != null">
@@ -179,7 +179,7 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.UserInfo">
+    <update id="updateByPrimaryKey" parameterType="com.peait.student.entity.UserInfo">
     update user_info
     set userCode = #{usercode,jdbcType=VARCHAR},
       userName = #{username,jdbcType=VARCHAR},

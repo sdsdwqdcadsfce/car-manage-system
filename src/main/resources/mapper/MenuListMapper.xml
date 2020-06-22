@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.peait.carmanagesystem.mapper.MenuListMapper">
-  <resultMap id="BaseResultMap" type="com.peait.carmanagesystem.entity.MenuList">
+<mapper namespace="com.peait.student.mapper.MenuListMapper">
+  <resultMap id="BaseResultMap" type="com.peait.student.entity.MenuList">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
@@ -32,7 +32,7 @@
     from menu
     order by menu_index,menu_order
   </select>
-  <insert id="insert" parameterType="com.peait.carmanagesystem.entity.MenuList">
+  <insert id="insert" parameterType="com.peait.student.entity.MenuList">
     insert into menu (id, menu_code, menu_name, 
       f_id, emnu_path, user_id, 
       menu_order, menu_index)
@@ -40,7 +40,7 @@
       #{fId,jdbcType=VARCHAR}, #{emnuPath,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{menuOrder,jdbcType=INTEGER}, #{menuIndex,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.peait.carmanagesystem.entity.MenuList">
+  <insert id="insertSelective" parameterType="com.peait.student.entity.MenuList">
     insert into menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -95,7 +95,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.peait.carmanagesystem.entity.MenuList">
+  <update id="updateByPrimaryKeySelective" parameterType="com.peait.student.entity.MenuList">
     update menu
     <set>
       <if test="menuCode != null">
@@ -122,7 +122,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.peait.carmanagesystem.entity.MenuList">
+  <update id="updateByPrimaryKey" parameterType="com.peait.student.entity.MenuList">
     update menu
     set menu_code = #{menuCode,jdbcType=VARCHAR},
       menu_name = #{menuName,jdbcType=VARCHAR},
